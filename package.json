@@ -1,7 +1,7 @@
 {
   "name": "userstoriesapp",
   "version": "1.0.0",
-  "description": "",
+  "description": "MERN stack project",
   "main": "server.js",
   "scripts": {
     "start": "node server",

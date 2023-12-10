@@ -20,11 +20,12 @@ connectDB()
 
 app.use(cors(corsOptions))
 
-app.use(express.json())
+app.use(express.json()) // for parsing application/json
 
 app.use(cookieParser())
 
 app.use('/', express.static(path.join(__dirname, 'public')))
+// This is using Node.js's built-in path module to create a path to the directory that holds your static files. __dirname is a global variable in Node.js that gets the directory name of the current module, and 'public' is presumably a directory in your project where you're keeping static files like HTML, CSS, and client-side JavaScript files.
 
 app.use('/', require('./routes/root'))
 app.use('/users', require('./routes/userRoutes'))

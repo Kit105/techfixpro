@@ -14,8 +14,9 @@ function App() {
         <Route index element={<Public />} />
         <Route path="login" element={<Login />} />
 
+        {/* protected routes */}
         <Route path="dash" element={<DashLayout />}>
-
+      
           <Route index element={<Welcome />} />
 
           <Route path="notes">
