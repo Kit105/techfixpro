@@ -1,5 +1,5 @@
 import { useGetUsersQuery } from "./usersApiSlice"
-import User from "./User"
+import User from './User'
 
 const UsersList = () => {
 
@@ -8,14 +8,16 @@ const UsersList = () => {
         isLoading,
         isSuccess,
         isError,
-        error,
-    } = useGetUsersQuery()
+        error
+    } = useGetUsersQuery(undefined, {
+        pollingInterval: 60000,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true
+    })
 
     let content
 
-    if (isLoading) {
-        content = <div className="loader">Loading...</div>
-    }
+    if (isLoading) content = <p>Loading...</p>
 
     if (isError) {
         content = <p className="errmsg">{error?.data?.message}</p>

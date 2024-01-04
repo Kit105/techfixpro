@@ -7,16 +7,16 @@ const { logger, logEvents } = require('./middleware/logger')
 const errorHandler = require('./middleware/errorHandler')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
-const corsOptions = require('./configs/corsOptions')
-const connectDB = require('./configs/dbConn')
+const corsOptions = require('./config/corsOptions')
+const connectDB = require('./config/dbConn')
 const mongoose = require('mongoose')
 const PORT = process.env.PORT || 3500
 
 console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
 
-app.use(logger)
-
 connectDB()
+
+app.use(logger)
 
 app.use(cors(corsOptions))
 
@@ -33,13 +33,11 @@ app.use('/notes', require('./routes/noteRoutes'))
 
 app.all('*', (req, res) => {
     res.status(404)
-    if (req.accepts('html')){
+    if (req.accepts('html')) {
         res.sendFile(path.join(__dirname, 'views', '404.html'))
-    }
-    else if (req.accepts('json')){
-        res.json({message: '404 Not Found'})
-    }
-    else {
+    } else if (req.accepts('json')) {
+        res.json({ message: '404 Not Found' })
+    } else {
         res.type('txt').send('404 Not Found')
     }
 })
@@ -51,7 +49,7 @@ mongoose.connection.once('open', () => {
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 })
 
-mongoose.connection.on('error', (err) => {
+mongoose.connection.on('error', err => {
     console.log(err)
-    logEvents(`${err.name}\t${err.code}\t${err.syscall}\t${err.address}\t${err.hostname}`, 'mongoErrLog.log')
+    logEvents(`${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`, 'mongoErrLog.log')
 })
