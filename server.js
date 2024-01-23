@@ -1,5 +1,5 @@
 require('dotenv').config()
-
+require('express-async-errors')
 const express = require('express')
 const app = express()
 const path = require('path')
@@ -12,7 +12,7 @@ const connectDB = require('./config/dbConn')
 const mongoose = require('mongoose')
 const PORT = process.env.PORT || 3500
 
-console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
+console.log(process.env.NODE_ENV)
 
 connectDB()
 
@@ -20,14 +20,14 @@ app.use(logger)
 
 app.use(cors(corsOptions))
 
-app.use(express.json()) // for parsing application/json
+app.use(express.json())
 
 app.use(cookieParser())
 
 app.use('/', express.static(path.join(__dirname, 'public')))
-// This is using Node.js's built-in path module to create a path to the directory that holds your static files. __dirname is a global variable in Node.js that gets the directory name of the current module, and 'public' is presumably a directory in your project where you're keeping static files like HTML, CSS, and client-side JavaScript files.
 
 app.use('/', require('./routes/root'))
+app.use('/auth', require('./routes/authRoutes'))
 app.use('/users', require('./routes/userRoutes'))
 app.use('/notes', require('./routes/noteRoutes'))
 
