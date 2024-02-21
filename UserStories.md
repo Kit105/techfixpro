@@ -1,4 +1,4 @@
-# User Stories for techNotes
+# User Stories for techFix Pro 
 
 1. [ ] Replace current sticky note system
 2. [ ] Add a public facing page with basic contact info 

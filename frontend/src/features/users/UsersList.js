@@ -4,7 +4,7 @@ import useTitle from "../../hooks/useTitle"
 import PulseLoader from 'react-spinners/PulseLoader'
 
 const UsersList = () => {
-    useTitle('techNotes: Users List')
+    useTitle('techFix Pro : Users List')
 
     const {
         data: users,
