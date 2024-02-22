@@ -1,6 +1,6 @@
 const allowedOrigins = [
-    'https://www.techfixpro.netlify.app',
-    'https://techfixpro.netlify.app'
+    'https://www.techfixpro.onrender.app',
+    'https://techfixpro.onrender.com'
 ]
 
 module.exports = allowedOrigins
