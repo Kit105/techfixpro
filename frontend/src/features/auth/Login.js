@@ -59,7 +59,7 @@ const Login = () => {
     const handlePwdInput = (e) => setPassword(e.target.value)
     const handleToggle = () => setPersist(prev => !prev)
 
-    const errClass = errMsg ? "errmsg" : "offscreen"
+    const errClass = errMsg ? "alert alert-error" : "offscreen"
 
     if (isLoading) return <PulseLoader color={"#FFF"} />
 
@@ -80,7 +80,7 @@ const Login = () => {
                         </div>
                     </div>
                     <div className="navbar-center">
-                        <a className="btn btn-ghost text-3xl"><LiaSearchengin /> techFix Pro</a>
+                        <button className="btn btn-ghost text-3xl"><LiaSearchengin /> techFix Pro</button>
                     </div>
                     <div className="navbar-end">
 
@@ -89,37 +89,42 @@ const Login = () => {
                     </div>
                 </div>
             </header>
-            <main className="container w-full justify-center m-auto grid grid-flow-col grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1">
-                {/* <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p> */}
-
-                <form className="w-96 max-w-xs justify-center m-auto p-auto grid grid-flow-row grid-rows-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1" onSubmit={handleSubmit}>
-                    <div className="label">
-                        <span className="label-text" htmlFor="username">Username:</span>
-                    </div>
-                    {/* <label htmlFor="username">Username:</label> */}
-                    <input
-                        className="input input-bordered w-full"
-                        type="text"
-                        id="username"
-                        ref={userRef}
-                        value={username}
-                        onChange={handleUserInput}
-                        autoComplete="off"
-                        required
-                    />
-                    <div className="label">
-                        <span className="label-text" htmlFor="password">Password:</span>
-                    </div>
-                    {/* <label htmlFor="password">Password:</label> */}
-                    <input
-                        className="input input-bordered w-full"
-                        type="password"
-                        id="password"
-                        onChange={handlePwdInput}
-                        value={password}
-                        required
-                    />
-                    {/* <label htmlFor="persist" className="form__persist">
+            <main className="">
+                <div className="hero min-h-screen bg-base-200">
+                    <div className="hero-content flex-col lg:flex-row-reverse">
+                        <div className="text-center lg:text-left">
+                            <h1 className="text-5xl font-bold">Employee Login</h1>
+                            <p className="py-6">Welcome to our employee dashboard! Collaborate seamlessly and share customer tech issues with ease. Streamline communication and enhance problem-solving efficiency.</p>
+                        </div>
+                        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100 py-5">
+                            <form className="w-96 max-w-xs justify-center m-auto p-auto grid grid-flow-row grid-rows-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1" onSubmit={handleSubmit}>
+                                <div className="label">
+                                    <span className="label-text" htmlFor="username">Username:</span>
+                                </div>
+                                {/* <label htmlFor="username">Username:</label> */}
+                                <input
+                                    className="input input-bordered w-full"
+                                    type="text"
+                                    id="username"
+                                    ref={userRef}
+                                    value={username}
+                                    onChange={handleUserInput}
+                                    autoComplete="off"
+                                    required
+                                />
+                                <div className="label">
+                                    <span className="label-text" htmlFor="password">Password:</span>
+                                </div>
+                                {/* <label htmlFor="password">Password:</label> */}
+                                <input
+                                    className="input input-bordered w-full"
+                                    type="password"
+                                    id="password"
+                                    onChange={handlePwdInput}
+                                    value={password}
+                                    required
+                                />
+                                {/* <label htmlFor="persist" className="form__persist">
                         <input
                             type="checkbox"
                             className="form__checkbox"
@@ -129,20 +134,24 @@ const Login = () => {
                         />
                         Trust This Device
                     </label> */}
-                    <div className="form-control mt-2">
-                        <label htmlFor="persist" className="cursor-pointer label flex flex-row justify-start">
-                            <span className="label-text">Trust This Device</span>
-                            <input type="checkbox" defaultChecked className="checkbox checkbox-accent ml-5" id="persist" onChange={handleToggle}
-                                checked={persist} />
-                        </label>
+                                <div className="form-control mt-2">
+                                    <label htmlFor="persist" className="cursor-pointer label flex flex-row justify-start">
+                                        <span className="label-text">Trust This Device</span>
+                                        <input type="checkbox" defaultChecked className="checkbox checkbox-accent ml-5" id="persist" onChange={handleToggle}
+                                            checked={persist} />
+                                    </label>
+                                </div>
+                                <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p>
+                                <div className="divider"></div>
+
+                                <button className="btn btn-primary w-full">Log In</button>
+
+                            </form>
+                        </div>
                     </div>
-                    <div className="divider"></div>
-
-                    <button className="btn btn-primary w-full">Sign In</button>
+                </div>
 
 
-
-                </form>
             </main>
             <footer>
             </footer>

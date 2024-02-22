@@ -50,62 +50,78 @@ const NewNoteForm = ({ users }) => {
         )
     })
 
-    const errClass = isError ? "errmsg" : "offscreen"
-    const validTitleClass = !title ? "form__input--incomplete" : ''
-    const validTextClass = !text ? "form__input--incomplete" : ''
+    const errClass = isError ? "alert alert-error" : "offscreen"
+    const validTitleClass = !title ? "input-error" : ''
+    const validTextClass = !text ? "input-error" : ''
 
     const content = (
         <>
-            <p className={errClass}>{error?.data?.message}</p>
+            <div className="w-4/5 justify-center m-auto p-auto">
 
-            <form className="form" onSubmit={onSaveNoteClicked}>
-                <div className="form__title-row">
-                    <h2>New Note</h2>
-                    <div className="form__action-buttons">
-                        <button
-                            className="icon-button"
-                            title="Save"
-                            disabled={!canSave}
-                        >
-                            <FontAwesomeIcon icon={faSave} />
-                        </button>
+                <p className={errClass}>{error?.data?.message}</p>
+
+                <form className="form-control" onSubmit={onSaveNoteClicked}>
+
+                    <label className="form-control" htmlFor="title">
+                        <div className="label">
+
+                            <span className="label-text">Title:</span>
+                        </div>
+
+                        <input
+                            className={`input input-bordered w-full ${validTitleClass}`}
+                            id="title"
+                            name="title"
+                            type="text"
+                            autoComplete="off"
+                            value={title}
+                            onChange={onTitleChanged}
+                        />
+                    </label>
+
+                    <label className="form-control" htmlFor="text">
+                        <div className="label">
+
+                            <span className="label-text">Text:</span>
+                        </div>
+                        <textarea
+                            className={`textarea textarea-bordered w-full ${validTextClass}`}
+                            id="text"
+                            name="text"
+                            value={text}
+                            onChange={onTextChanged}
+                        />
+                    </label>
+                    <label className="form-control" htmlFor="username">
+                    <div className="label">
+
+<span className="label-text">Assigned to:</span>
+</div>
+                    <select
+                        id="username"
+                        name="username"
+                        className="select select-bordered"
+                        value={userId}
+                        onChange={onUserIdChanged}
+                    >
+                        {options}
+                    </select>
+                    </label>
+                    <div className="form-control flex flex-row justify-start align-middle my-4">
+                        <div className="form__action-buttons">
+                            <button
+                                className="btn btn-success text-2xl"
+                                title="Save"
+                                disabled={!canSave}
+                            >
+                                <FontAwesomeIcon icon={faSave} /> Save
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <label className="form__label" htmlFor="title">
-                    Title:</label>
-                <input
-                    className={`form__input ${validTitleClass}`}
-                    id="title"
-                    name="title"
-                    type="text"
-                    autoComplete="off"
-                    value={title}
-                    onChange={onTitleChanged}
-                />
 
-                <label className="form__label" htmlFor="text">
-                    Text:</label>
-                <textarea
-                    className={`form__input form__input--text ${validTextClass}`}
-                    id="text"
-                    name="text"
-                    value={text}
-                    onChange={onTextChanged}
-                />
+                </form>
+            </div>
 
-                <label className="form__label form__checkbox-container" htmlFor="username">
-                    ASSIGNED TO:</label>
-                <select
-                    id="username"
-                    name="username"
-                    className="form__select"
-                    value={userId}
-                    onChange={onUserIdChanged}
-                >
-                    {options}
-                </select>
-
-            </form>
         </>
     )
 

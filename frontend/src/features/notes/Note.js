@@ -22,11 +22,11 @@ const Note = ({ noteId }) => {
         const handleEdit = () => navigate(`/dash/notes/${noteId}`)
 
         return (
-            <tr className="table__row">
+            <tr className="table__row hover p-auto">
                 <td className="table__cell note__status">
                     {note.completed
-                        ? <span className="note__status--completed">Completed</span>
-                        : <span className="note__status--open">Open</span>
+                        ? <span className="btn btn-success btn-active no-animation">Completed</span>
+                        : <span className="btn btn-info btn-active no-animation">Open</span>
                     }
                 </td>
                 <td className="table__cell note__created">{created}</td>
@@ -36,7 +36,7 @@ const Note = ({ noteId }) => {
 
                 <td className="table__cell">
                     <button
-                        className="icon-button table__button"
+                        className="btn btn-circle text-2xl mx-2"    
                         onClick={handleEdit}
                     >
                         <FontAwesomeIcon icon={faPenToSquare} />

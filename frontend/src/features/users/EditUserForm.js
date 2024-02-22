@@ -93,10 +93,10 @@ const EditUserForm = ({ user }) => {
         canSave = [roles.length, validUsername].every(Boolean) && !isLoading
     }
 
-    const errClass = (isError || isDelError) ? "errmsg" : "offscreen"
-    const validUserClass = !validUsername ? 'form__input--incomplete' : ''
-    const validPwdClass = password && !validPassword ? 'form__input--incomplete' : ''
-    const validRolesClass = !Boolean(roles.length) ? 'form__input--incomplete' : ''
+    const errClass = (isError || isDelError) ? "alert alert-error" : "offscreen"
+    const validUserClass = !validUsername ? 'input-error' : ''
+    const validPwdClass = password && !validPassword ? 'input-error' : ''
+    const validRolesClass = !Boolean(roles.length) ? 'input-error' : ''
 
     const errContent = (error?.data?.message || delerror?.data?.message) ?? ''
 
@@ -105,68 +105,64 @@ const EditUserForm = ({ user }) => {
         <>
             <p className={errClass}>{errContent}</p>
 
-            <form className="form" onSubmit={e => e.preventDefault()}>
-                <div className="form__title-row">
-                    <h2>Edit User</h2>
-                    <div className="form__action-buttons">
+            <form className="form-control w-4/5 justify-center m-auto p-auto mb-5" onSubmit={e => e.preventDefault()}>
+                <div className="w-full flex justify-between">
+                    <h2 className="text-4xl">Edit User</h2>
+                    <div className="flex flex-row justify-center align-bottom">
                         <button
-                            className="icon-button"
+                            className="btn btn-success text-2xl mx-2"
                             title="Save"
                             onClick={onSaveUserClicked}
                             disabled={!canSave}
                         >
-                            <FontAwesomeIcon icon={faSave} />
+                            <FontAwesomeIcon icon={faSave} /> Save
                         </button>
                         <button
-                            className="icon-button"
+                            className="btn btn-error btn-outline text-2xl mx-2"
                             title="Delete"
                             onClick={onDeleteUserClicked}
                         >
-                            <FontAwesomeIcon icon={faTrashCan} />
+                            <FontAwesomeIcon icon={faTrashCan} /> Delete
                         </button>
                     </div>
                 </div>
-                <label className="form__label" htmlFor="username">
-                    Username: <span className="nowrap">[3-20 letters]</span></label>
-                <input
-                    className={`form__input ${validUserClass}`}
-                    id="username"
-                    name="username"
-                    type="text"
-                    autoComplete="off"
-                    value={username}
-                    onChange={onUsernameChanged}
-                />
-
-                <label className="form__label" htmlFor="password">
-                    Password: <span className="nowrap">[empty = no change]</span> <span className="nowrap">[4-12 chars incl. !@#$%]</span></label>
-                <input
-                    className={`form__input ${validPwdClass}`}
-                    id="password"
-                    name="password"
-                    type="password"
-                    value={password}
-                    onChange={onPasswordChanged}
-                />
-
-                <label className="form__label form__checkbox-container" htmlFor="user-active">
-                    ACTIVE:
+                <label className="form-control w-full my-3" htmlFor="username">
+                    <div className="label">
+                        <span className="label-text">Username: <span className="badge badge-neutral">[3-20 letters]</span></span>
+                    </div>
                     <input
-                        className="form__checkbox"
-                        id="user-active"
-                        name="user-active"
-                        type="checkbox"
-                        checked={active}
-                        onChange={onActiveChanged}
+                        className={`input input-bordered w-full ${validUserClass}`}
+                        id="username"
+                        name="username"
+                        type="text"
+                        autoComplete="off"
+                        value={username}
+                        onChange={onUsernameChanged}
                     />
                 </label>
+                <label className="form-control w-full my-3" htmlFor="password">
+                    <div className="label">
 
-                <label className="form__label" htmlFor="roles">
-                    ASSIGNED ROLES:</label>
+                        <span className="label-text">Password:<span className="badge badge-neutral">[4-12 chars incl. !@#$%]</span>
+                        </span>
+                    </div>
+                    <input
+                        className={`input input-bordered w-full ${validPwdClass}`}
+                        id="password"
+                        name="password"
+                        type="password"
+                        value={password}
+                        onChange={onPasswordChanged}
+                    />
+
+                </label>
+
+                <label className="form-control w-full my-3" htmlFor="roles">
+                    Assigned Roles:</label>
                 <select
                     id="roles"
                     name="roles"
-                    className={`form__select ${validRolesClass}`}
+                    className={`select select-bordered select-lg py-2 ${validRolesClass}`}
                     multiple={true}
                     size="3"
                     value={roles}
@@ -175,6 +171,19 @@ const EditUserForm = ({ user }) => {
                     {options}
                 </select>
 
+                <label className="form-control w-full my-3" htmlFor="user-active">
+                    <div className="label">
+                        <span className="label-text">Active:</span>
+                    </div>
+                    <input
+                        className="checkbox checkbox-primary"
+                        id="user-active"
+                        name="user-active"
+                        type="checkbox"
+                        checked={active}
+                        onChange={onActiveChanged}
+                    />
+                </label>
             </form>
         </>
     )

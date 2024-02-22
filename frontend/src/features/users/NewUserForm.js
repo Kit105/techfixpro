@@ -84,23 +84,26 @@ const NewUserForm = () => {
         <>
             <p className={errClass}>{error?.data?.message}</p>
 
-            <form className="form" onSubmit={onSaveUserClicked}>
-                <div className="form__title-row">
-                    <h2>New User</h2>
-                    <div className="form__action-buttons">
+            <form className="form-control w-4/5 justify-center m-auto p-auto mb-5" onSubmit={onSaveUserClicked}>
+                <div className="w-full flex justify-between">
+                    <h2 className="text-4xl">Add New User</h2>
+                    <div className="btn btn-success text-2xl mx-2">
                         <button
                             className="icon-button"
                             title="Save"
                             disabled={!canSave}
                         >
-                            <FontAwesomeIcon icon={faSave} />
+                            <FontAwesomeIcon icon={faSave} /> Save
                         </button>
                     </div>
                 </div>
-                <label className="form__label" htmlFor="username">
-                    Username: <span className="nowrap">[3-20 letters]</span></label>
+                <label className="form-control w-full my-3" htmlFor="username">
+                    <div className="label">
+                        <span className="label-text">Username: <span className="badge badge-neutral">[3-20 letters]</span></span>
+                    </div>
+                </label>
                 <input
-                    className={`form__input ${validUserClass}`}
+                    className={`input input-bordered w-full ${validUserClass}`}
                     id="username"
                     name="username"
                     type="text"
@@ -109,23 +112,28 @@ const NewUserForm = () => {
                     onChange={onUsernameChanged}
                 />
 
-                <label className="form__label" htmlFor="password">
-                    Password: <span className="nowrap">[4-12 chars incl. !@#$%]</span></label>
-                <input
-                    className={`form__input ${validPwdClass}`}
-                    id="password"
-                    name="password"
-                    type="password"
-                    value={password}
-                    onChange={onPasswordChanged}
-                />
+                <label className="form-control w-full my-3" htmlFor="password">
+                    <div className="label">
 
-                <label className="form__label" htmlFor="roles">
-                    ASSIGNED ROLES:</label>
+                        <span className="label-text">Password:<span className="badge badge-neutral">[4-12 chars incl. !@#$%]</span>
+                        </span>
+                    </div>
+                    <input
+                        className={`input input-bordered w-full ${validPwdClass}`}
+                        id="password"
+                        name="password"
+                        type="password"
+                        value={password}
+                        onChange={onPasswordChanged}
+                    />
+                </label>
+
+                <label className="form-control w-full my-3" htmlFor="roles">
+                    Assigned Roles:</label>
                 <select
                     id="roles"
                     name="roles"
-                    className={`form__select ${validRolesClass}`}
+                    className={`select select-bordered select-lg py-2 ${validRolesClass}`}
                     multiple={true}
                     size="3"
                     value={roles}

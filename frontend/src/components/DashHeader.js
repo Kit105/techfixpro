@@ -7,22 +7,23 @@ import {
     faUserPlus,
     faRightFromBracket
 } from "@fortawesome/free-solid-svg-icons"
-import { useNavigate, Link, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { useSendLogoutMutation } from '../features/auth/authApiSlice'
 import useAuth from '../hooks/useAuth'
 import PulseLoader from 'react-spinners/PulseLoader'
 import { LiaSearchengin } from "react-icons/lia";
+import { FaUser } from "react-icons/fa";
 
-
-const DASH_REGEX = /^\/dash(\/)?$/
+// const DASH_REGEX = /^\/dash(\/)?$/
 const NOTES_REGEX = /^\/dash\/notes(\/)?$/
 const USERS_REGEX = /^\/dash\/users(\/)?$/
 
 const DashHeader = () => {
-    const { isManager, isAdmin } = useAuth()
+    const { username, isManager, isAdmin } = useAuth()
 
     const navigate = useNavigate()
     const { pathname } = useLocation()
+    const onGoHomeClicked = () => navigate('/dash')
 
     const [sendLogout, {
         isLoading,
@@ -40,34 +41,36 @@ const DashHeader = () => {
     const onNotesClicked = () => navigate('/dash/notes')
     const onUsersClicked = () => navigate('/dash/users')
 
-    let dashClass = null
-    if (!DASH_REGEX.test(pathname) && !NOTES_REGEX.test(pathname) && !USERS_REGEX.test(pathname)) {
-        dashClass = "dash-header__container--small"
-    }
 
     let newNoteButton = null
     if (NOTES_REGEX.test(pathname)) {
         newNoteButton = (
-            <button
-                className="icon-button"
-                title="New Note"
-                onClick={onNewNoteClicked}
-            >
-                <FontAwesomeIcon icon={faFileCirclePlus} />
-            </button>
+            <div className="tooltip tooltip-bottom" data-tip="New Note">
+
+                <button
+                    className="btn btn-circle text-4xl mx-2"
+                    title="New Note"
+                    onClick={onNewNoteClicked}
+                >
+                    <FontAwesomeIcon icon={faFileCirclePlus} />
+                </button>
+            </div>
         )
     }
 
     let newUserButton = null
     if (USERS_REGEX.test(pathname)) {
         newUserButton = (
-            <button
-                className="icon-button"
-                title="New User"
-                onClick={onNewUserClicked}
-            >
-                <FontAwesomeIcon icon={faUserPlus} />
-            </button>
+            <div className="tooltip tooltip-bottom" data-tip="New User">
+
+                <button
+                    className="btn btn-circle text-4xl mx-2"
+                    title="New User"
+                    onClick={onNewUserClicked}
+                >
+                    <FontAwesomeIcon icon={faUserPlus} />
+                </button>
+            </div>
         )
     }
 
@@ -75,13 +78,16 @@ const DashHeader = () => {
     if (isManager || isAdmin) {
         if (!USERS_REGEX.test(pathname) && pathname.includes('/dash')) {
             userButton = (
-                <button
-                    className="icon-button"
-                    title="Users"
-                    onClick={onUsersClicked}
-                >
-                    <FontAwesomeIcon icon={faUserGear} />
-                </button>
+                <div className="tooltip tooltip-bottom" data-tip="Users">
+
+                    <button
+                        className="btn btn-circle text-4xl mx-2"
+                        title="Users"
+                        onClick={onUsersClicked}
+                    >
+                        <FontAwesomeIcon icon={faUserGear} />
+                    </button>
+                </div>
             )
         }
     }
@@ -89,24 +95,30 @@ const DashHeader = () => {
     let notesButton = null
     if (!NOTES_REGEX.test(pathname) && pathname.includes('/dash')) {
         notesButton = (
-            <button
-                className="icon-button"
-                title="Notes"
-                onClick={onNotesClicked}
-            >
-                <FontAwesomeIcon icon={faFilePen} />
-            </button>
+            <div className="tooltip tooltip-bottom" data-tip="Notes">
+
+                <button
+                    className="btn btn-circle text-4xl mx-2"
+                    title="Notes"
+                    onClick={onNotesClicked}
+                >
+                    <FontAwesomeIcon icon={faFilePen} />
+                </button>
+            </div>
         )
     }
 
     const logoutButton = (
-        <button
-            className="icon-button"
-            title="Logout"
-            onClick={sendLogout}
-        >
-            <FontAwesomeIcon icon={faRightFromBracket} />
-        </button>
+        <div className="tooltip tooltip-bottom" data-tip="logout">
+
+            <button
+                className="btn btn-circle text-4xl mx-2"
+                title="Logout"
+                onClick={sendLogout}
+            >
+                <FontAwesomeIcon icon={faRightFromBracket} />
+            </button>
+        </div>
     )
 
     const errClass = isError ? "errmsg" : "offscreen"
@@ -131,25 +143,21 @@ const DashHeader = () => {
             <p className={errClass}>{error?.data?.message}</p>
 
             <header className="dash-header">
-            <div className="navbar bg-base-100">
+                <div className="navbar bg-base-100">
                     <div className="navbar-start">
-                        <div className="dropdown">
-                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+                        <div className="avatar placeholder">
+                            <div className="bg-neutral text-neutral-content rounded-full w-10">
+                                <FaUser />
                             </div>
-                            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                                <li><a href="#why-us">Why Choose Us?</a></li>
-                                <li><a href="#services">Our Services</a></li>
-                                <li><a href="#contact">Contact Us</a></li>
-                            </ul>
                         </div>
+                        <span className="text-2xl mx-2">{username}</span>
                     </div>
                     <div className="navbar-center">
-                        <a className="btn btn-ghost text-3xl"><LiaSearchengin /> techFix Pro</a>
+                        <button className="btn btn-ghost text-3xl" onClick={onGoHomeClicked} ><LiaSearchengin /> techFix Pro</button>
                     </div>
                     <div className="navbar-end">
 
-                        <label className="swap swap-rotate">
+                        <label className="swap swap-rotate mx-3">
 
                             {/* this hidden checkbox controls the state */}
                             <input type="checkbox" className="mx-5 theme-controller" value="emerald" />
@@ -166,14 +174,6 @@ const DashHeader = () => {
 
                     </div>
                 </div>
-                {/* <div className={`dash-header__container ${dashClass}`}>
-                    <Link to="/dash">
-                        <h1 className="dash-header__title">techFix Pro </h1>
-                    </Link>
-                    <nav className="dash-header__nav">
-                        {buttonContent}
-                    </nav>
-                </div> */}
             </header>
         </>
     )

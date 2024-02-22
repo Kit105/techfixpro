@@ -25,7 +25,7 @@ const Public = () => {
                         </div>
                     </div>
                     <div className="navbar-center">
-                        <a className="btn btn-ghost text-3xl"><LiaSearchengin /> techFix Pro</a>
+                        <button className="btn btn-ghost text-3xl"><LiaSearchengin /> techFix Pro</button>
                     </div>
                     <div className="navbar-end">
 
@@ -207,10 +207,10 @@ const Public = () => {
                     </aside>
                     <nav>
                         <div className="grid grid-flow-col gap-4">
-                            <a href=""><TiSocialTwitter className="text-3xl" /></a>
-                            <a href=""><TiSocialFacebook className="text-3xl" /></a>
-                            <a href=""><TiSocialYoutube className="text-3xl" /></a>
-                            <a href=""><TiSocialInstagram className="text-3xl" /></a>
+                            <button><TiSocialTwitter className="text-3xl" /></button>
+                            <button><TiSocialFacebook className="text-3xl" /></button>
+                            <button><TiSocialYoutube className="text-3xl" /></button>
+                            <button><TiSocialInstagram className="text-3xl" /></button>
                             
                         </div>
                     </nav>

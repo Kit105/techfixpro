@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons"
 import useAuth from "../../hooks/useAuth"
 
+
 const EditNoteForm = ({ note, users }) => {
 
     const { isManager, isAdmin } = useAuth()
@@ -70,9 +71,9 @@ const EditNoteForm = ({ note, users }) => {
         )
     })
 
-    const errClass = (isError || isDelError) ? "errmsg" : "offscreen"
-    const validTitleClass = !title ? "form__input--incomplete" : ''
-    const validTextClass = !text ? "form__input--incomplete" : ''
+    const errClass = (isError || isDelError) ? "alert alert-error" : "offscreen"
+    const validTitleClass = !title ? "input-error" : ''
+    const validTextClass = !text ? "input-error" : ''
 
     const errContent = (error?.data?.message || delerror?.data?.message) ?? ''
 
@@ -81,11 +82,11 @@ const EditNoteForm = ({ note, users }) => {
     if (isManager || isAdmin) {
         deleteButton = (
             <button
-                className="icon-button"
+                className="btn btn-error btn-outline text-2xl mx-2"
                 title="Delete"
                 onClick={onDeleteNoteClicked}
             >
-                <FontAwesomeIcon icon={faTrashCan} />
+                <FontAwesomeIcon icon={faTrashCan} /> Delete
             </button>
         )
     }
@@ -94,48 +95,65 @@ const EditNoteForm = ({ note, users }) => {
         <>
             <p className={errClass}>{errContent}</p>
 
-            <form className="form" onSubmit={e => e.preventDefault()}>
-                <div className="form__title-row">
-                    <h2>Edit Note #{note.ticket}</h2>
-                    <div className="form__action-buttons">
+            <form className="w-4/5 justify-center m-auto p-auto grid grid-flow-row grid-rows-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1" onSubmit={e => e.preventDefault()}>
+                <div className="w-full flex justify-between">
+                    <h5 className="text-4xl">Edit Note #{note.ticket}</h5>
+                    <div className="flex flex-row justify-center align-bottom">
                         <button
-                            className="icon-button"
+                            className="btn btn-success text-2xl mx-2"
                             title="Save"
                             onClick={onSaveNoteClicked}
                             disabled={!canSave}
                         >
-                            <FontAwesomeIcon icon={faSave} />
+                            <FontAwesomeIcon icon={faSave} /> Save
                         </button>
                         {deleteButton}
                     </div>
                 </div>
-                <label className="form__label" htmlFor="note-title">
-                    Title:</label>
-                <input
-                    className={`form__input ${validTitleClass}`}
-                    id="note-title"
-                    name="title"
-                    type="text"
-                    autoComplete="off"
-                    value={title}
-                    onChange={onTitleChanged}
-                />
+                <label className="form-control w-full" htmlFor="note-title">
+                    <div className="label">
+                        <span className="label-text">Title: </span>
+                    </div>
+                    <input
+                        className={`input input-bordered w-full ${validTitleClass}`}
+                        id="note-title"
+                        name="title"
+                        type="text"
+                        autoComplete="off"
+                        value={title}
+                        onChange={onTitleChanged}
+                    />
+                </label>
 
-                <label className="form__label" htmlFor="note-text">
-                    Text:</label>
-                <textarea
-                    className={`form__input form__input--text ${validTextClass}`}
-                    id="note-text"
-                    name="text"
-                    value={text}
-                    onChange={onTextChanged}
-                />
-                <div className="form__row">
-                    <div className="form__divider">
-                        <label className="form__label form__checkbox-container" htmlFor="note-completed">
-                            WORK COMPLETE:
+                <label className="form-control w-full" htmlFor="note-text">
+                    <div className="label">
+                        <span className="label-text">Text: </span>
+                    </div>
+                    <textarea
+                        className={`input input-bordered w-full ${validTextClass}`}
+                        id="note-text"
+                        name="text"
+                        value={text}
+                        onChange={onTextChanged}
+                    />
+                </label>
+                <div className="form-control">
+                    <div className="form-control">
+                        <label className="label cursor-pointer" htmlFor="note-username">
+                            Assigned to:</label>
+                        <select
+                            id="note-username"
+                            name="username"
+                            className="select select-bordered"
+                            value={userId}
+                            onChange={onUserIdChanged}
+                        >
+                            {options}
+                        </select>
+                        <label className="label cursor-pointer flex flex-row justify-start" htmlFor="note-completed">
+                            <span className="label-text">Completed:</span>
                             <input
-                                className="form__checkbox"
+                                className="checkbox checkbox-primary mx-3"
                                 id="note-completed"
                                 name="completed"
                                 type="checkbox"
@@ -143,22 +161,10 @@ const EditNoteForm = ({ note, users }) => {
                                 onChange={onCompletedChanged}
                             />
                         </label>
-
-                        <label className="form__label form__checkbox-container" htmlFor="note-username">
-                            ASSIGNED TO:</label>
-                        <select
-                            id="note-username"
-                            name="username"
-                            className="form__select"
-                            value={userId}
-                            onChange={onUserIdChanged}
-                        >
-                            {options}
-                        </select>
                     </div>
-                    <div className="form__divider">
-                        <p className="form__created">Created:<br />{created}</p>
-                        <p className="form__updated">Updated:<br />{updated}</p>
+                    <div className="stats stats-vertical lg:stats-horizontal shadow my-5">
+                        <p className="stat">Created:<br />{created}</p>
+                        <p className="stat">Updated:<br />{updated}</p>
                     </div>
                 </div>
             </form>
