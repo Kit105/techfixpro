@@ -1,8 +1,6 @@
 const allowedOrigins = [
-    'http://localhost:3000',
-    'http://localhost:3500',
-    'https://www.dandrepairshop.com',
-    'https://dandrepairshop.com'
+    'https://www.techfixpro.netlify.app',
+    'https://techfixpro.netlify.app'
 ]
 
 module.exports = allowedOrigins
