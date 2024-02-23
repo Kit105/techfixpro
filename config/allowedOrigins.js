@@ -1,5 +1,5 @@
 const allowedOrigins = [
-    'https://www.techfixpro.onrender.app',
+    'https://www.techfixpro.onrender.com',
     'https://techfixpro.onrender.com'
 ]
 
