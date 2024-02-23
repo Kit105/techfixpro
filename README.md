@@ -140,14 +140,27 @@ function App() {
 
 A live demo of the project is available at [TechFixPro Demo](https://techfixpro.onrender.com/).
 
+For employee access, use the following credentials:  
+**username:** `johndoe`  
+**password:** `johndoe`  
+
 Please note that the login module may take some time to load initially due to server resource allocation on render.com. Thank you for your patience.
-<!-- 
+
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here) -->
+Home Page:  
+![Home Page](/frontend/src/img/home.png)
 
+Dashboard:  
+![Dashboard](/frontend/src/img/dash.jpeg)
 
-<!-- ## API Reference -->
+All notes:  
+![All Notes](/frontend/src/img/list.png)
+
+Note Details:  
+![Note Details](/frontend/src/img/notes.png)
+
+<!-- ## API Reference
 
 #### Get all items
 
@@ -171,7 +184,7 @@ Please note that the login module may take some time to load initially due to se
 
 #### add(num1, num2)
 
-Takes two numbers and returns the sum.
+Takes two numbers and returns the sum. -->
 
 
 ## License
