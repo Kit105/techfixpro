@@ -26,8 +26,8 @@ This project is a comprehensive MERN stack application designed to streamline th
 Clone the repository and navigate to the root directory:
 
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone https://github.com/Kit105/techfixpro.git
+cd techfixpro
 ```
 
 This project uses npm for package management. The repository is divided into two parts:
